@@ -1,0 +1,20 @@
+FROM google/dart
+
+#Setting the working directory
+WORKDIR/app
+
+#Copying the pubspec file and getting the dependencies
+COPY pubspec.* /app/
+RUN dart pub get
+
+#Copying the rest of the app soure code
+COPY . . 
+
+#Building the app
+RUN dart compile exe bin/main.dart -o bin/main
+
+#Exposing post listed below
+EXPOSE 8080
+
+#Starting the app when the contianer is started
+CMD ["bin/main"]
